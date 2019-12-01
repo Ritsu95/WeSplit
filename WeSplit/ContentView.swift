@@ -17,6 +17,16 @@ struct ContentView: View {
     let tipPercentages = [10, 15, 20, 25, 0]
     
     // Calculate the total per person
+    var total: Double {
+        // Getting all the variables to Doubles
+        let tipSelection = Double(tipPercentages[tipPercentage])
+        let orderAmount = Double(checkAmount) ?? 0
+        // Calculate percentage and add it to the amount
+        let tipValue = orderAmount / 100 * tipSelection
+        let grandTotal = orderAmount + tipValue
+        
+        return grandTotal
+    }
     var totalPerPerson: Double {
        // Getting all the variables to Doubles
         let peopleCount = Double(numberOfPeople + 2)
@@ -57,6 +67,11 @@ struct ContentView: View {
                 }
                 
                 // 3rd Section: total
+                Section (header: Text("Total")) {
+                    Text("\(total, specifier: "%.2f")€")
+                }
+                
+                // 4th Section: total per person
                 Section (header: Text("Total por persona")) {
                     Text("\(totalPerPerson, specifier: "%.2f")€")
                 }
