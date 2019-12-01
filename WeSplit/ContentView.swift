@@ -57,7 +57,7 @@ struct ContentView: View {
                 }
                 
                 // 3rd Section: total
-                Section {
+                Section (header: Text("Total por persona")) {
                     Text("\(totalPerPerson, specifier: "%.2f")€")
                 }
             }
