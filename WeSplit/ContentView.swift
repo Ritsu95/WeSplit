@@ -11,32 +11,31 @@ import SwiftUI
 struct ContentView: View {
     // Variables for the UI
     @State private var checkAmount = ""
-    @State private var numberOfPeople = 2
+    @State private var numberOfPeople = ""
     @State private var tipPercentage = 2
     
     let tipPercentages = [10, 15, 20, 25, 0]
     
-    // Calculate the total per person
+    // Calculate the total
     var total: Double {
         // Getting all the variables to Doubles
         let tipSelection = Double(tipPercentages[tipPercentage])
         let orderAmount = Double(checkAmount) ?? 0
+        
         // Calculate percentage and add it to the amount
         let tipValue = orderAmount / 100 * tipSelection
         let grandTotal = orderAmount + tipValue
         
         return grandTotal
     }
+    
+    // Calculate the total per person
     var totalPerPerson: Double {
-       // Getting all the variables to Doubles
-        let peopleCount = Double(numberOfPeople + 2)
-        let tipSelection = Double(tipPercentages[tipPercentage])
-        let orderAmount = Double(checkAmount) ?? 0
+        // Switch text to Double
+        let people = Double(numberOfPeople) ?? 0
         
-        // Calculate percentage, add it to the amount and spread it among the people
-        let tipValue = orderAmount / 100 * tipSelection
-        let grandTotal = orderAmount + tipValue
-        let amountPerPerson = grandTotal / peopleCount
+        // Get the total and spread it among the people
+        let amountPerPerson = total / people
         
         return amountPerPerson
     }
@@ -48,12 +47,8 @@ struct ContentView: View {
                 Section {
                     TextField("Cantidad", text: $checkAmount)
                         .keyboardType(.decimalPad)
-                    
-                    Picker("Cantidad de personas", selection: $numberOfPeople) {
-                        ForEach(2 ..< 100) {
-                            Text("\($0) personas")
-                        }
-                    }
+                    TextField("Personas", text: $numberOfPeople)
+                        .keyboardType(.numberPad)
                 }
                 
                 // 2nd Section: tip percentage
