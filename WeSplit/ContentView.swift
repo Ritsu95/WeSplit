@@ -32,7 +32,7 @@ struct ContentView: View {
     // Calculate the total per person
     var totalPerPerson: Double {
         // Switch text to Double
-        let people = Double(numberOfPeople) ?? 0
+        let people = Double(numberOfPeople) ?? 2
         
         // Get the total and spread it among the people
         let amountPerPerson = total / people
